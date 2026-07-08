@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE LONG HELLO</title>
+<style>
+  :root {
+    --bg: #0c0a07;
+    --amber: #edc25e;
+    --amber-dim: #8f7538;
+    --amber-faint: #574a28;
+    --frost: #e9f2f7;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--amber);
+    font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  #app {
+    max-width: 76ch;
+    height: 100dvh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.5ch;
+  }
+  #header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6em 0.5ch 0.45em;
+    border-bottom: 1px solid var(--amber-faint);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    min-height: 2.3em;
+  }
+  #log {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.2em 0.5ch 0.8em;
+    scrollbar-width: thin;
+    scrollbar-color: var(--amber-faint) transparent;
+  }
+  #log .line { min-height: 1.55em; white-space: pre-wrap; transition: color 1.2s ease, opacity 1.2s ease; }
+  #log .line.dim { color: var(--amber-dim); }
+  #log .line.faint { color: var(--amber-dim); }
+  #log .line.frost {
+    color: var(--frost);
+    text-shadow: 0 0 8px rgba(233, 242, 247, 0.28);
+  }
+  #log .line.frost.dim { color: var(--frost); opacity: 0.55; text-shadow: none; }
+  #log .line.art { white-space: pre; line-height: 1.15; }
+  #log .line.title-line {
+    font-size: 1.5em;
+    letter-spacing: 0.45em;
+    padding: 0.4em 0 0.2em;
+  }
+  #verbs {
+    min-height: 9.5em;
+    padding: 0.4em 0.5ch 1em;
+  }
+  #verbs .verb {
+    cursor: pointer;
+    white-space: pre-wrap;
+    color: var(--amber-dim);
+  }
+  #verbs .verb.sel { color: var(--amber); }
+  #verbs input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--amber-faint);
+    outline: none;
+    color: var(--amber);
+    font: inherit;
+    width: 40ch;
+    max-width: 90%;
+  }
+  #ticker {
+    border-top: 1px solid var(--amber-faint);
+    height: 2em;
+    line-height: 2em;
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--amber-dim);
+    letter-spacing: 0.08em;
+    visibility: hidden;
+  }
+  #ticker.on { visibility: visible; }
+  #ticker .inner {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee linear infinite;
+  }
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-200%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #ticker .inner { animation: none; padding-left: 1ch; }
+  }
+  #devhud {
+    position: fixed;
+    top: 4px;
+    right: 6px;
+    font-size: 11px;
+    color: #4c6;
+    white-space: pre;
+    opacity: 0.75;
+    pointer-events: none;
+    display: none;
+  }
+</style>
+</head>
+<body>
+  <div id="app">
+    <div id="header"><span id="hd-left"></span><span id="hd-right"></span></div>
+    <div id="log" aria-live="polite"></div>
+    <div id="verbs"></div>
+    <div id="ticker"><span class="inner"></span></div>
+  </div>
+  <div id="devhud"></div>
+  <script src="content.js"></script>
+  <script src="engine.js"></script>
+</body>
+</html>
