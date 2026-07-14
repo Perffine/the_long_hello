@@ -1,5 +1,7 @@
 # the_long_hello
 
+built with Claude Code
+
 a minimalist ascii narrative game. hundreds of thousands of alien objects appear
 on earth overnight, inscribed *"we wish you to know that you are not alone in the
 universe and we mean no harm."* then: silence. you are a hospice night nurse.
